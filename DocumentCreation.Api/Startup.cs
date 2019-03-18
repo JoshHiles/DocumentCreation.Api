@@ -170,12 +170,6 @@ namespace DocumentCreation.Api
 
             });
 
-            Handlebars.RegisterHelper("#FormatDateMoveOutDateOnly", (writer, context, parameters) =>
-            {
-                string newDate = context.ToString().Substring(0, 10);
-                writer.WriteSafeString(newDate);
-            });
-
             Handlebars.RegisterHelper("math", (output, context, parameters) =>
             {
                 Expression e = new Expression(string.Format("{0}{1}{2}", parameters[0], parameters[1], parameters[2]));
@@ -191,57 +185,6 @@ namespace DocumentCreation.Api
                 output.WriteSafeString(s);
             });
 
-            Handlebars.RegisterHelper("#FormatPropertyYoureLeaving", (output, context, parameters) =>
-            {
-                var propertyYoureLeaving = parameters[0].ToString();
-                var formattedPropertyYoureLeaving = "";
-
-                switch (propertyYoureLeaving.ToLower())
-                {
-                    case "owner":
-                        formattedPropertyYoureLeaving = "Owner";
-                        break;
-                    case "tenant":
-                        formattedPropertyYoureLeaving = "Tenant";
-                        break;
-                    case "resident-counciltaxpayer":
-                        formattedPropertyYoureLeaving = "Resident - Council Tax payer";
-                        break;
-                    case "resident-noncounciltaxpayer":
-                        formattedPropertyYoureLeaving = "Resident - Non Council Tax payer";
-                        break;
-                }
-
-                output.WriteSafeString(formattedPropertyYoureLeaving);
-            });
-
-            Handlebars.RegisterHelper("#FormatWhatsHappeningNow", (output, context, parameters) =>
-            {
-                var propertyYoureLeaving = parameters[0].ToString();
-                var formattedPropertyYoureLeaving = "";
-
-                switch (propertyYoureLeaving.ToLower())
-                {
-                    case "unoccupied":
-                        formattedPropertyYoureLeaving = "Unoccupied";
-                        break;
-                    case "renovations":
-                        formattedPropertyYoureLeaving = "Unoccupied for renovations";
-                        break;
-                    case "tenants":
-                        formattedPropertyYoureLeaving = "Tenants moving in";
-                        break;
-                    case "family":
-                        formattedPropertyYoureLeaving = "Occupied by family members";
-                        break;
-                    case "repossessed":
-                        formattedPropertyYoureLeaving = "The property was repossessed";
-                        break;
-                }
-
-                output.WriteSafeString(formattedPropertyYoureLeaving);
-            });
-
             Handlebars.RegisterHelper("HasValue", (writer, options, context, args) =>
             {
                 if (!string.IsNullOrEmpty(args[0].ToString().Trim()) && args[0].ToString() != "[]" && args[0].ToString() != "01/01/0001 00:01:15")
@@ -249,86 +192,6 @@ namespace DocumentCreation.Api
                     options.Template(writer, (object)context);
                 }
             });
-
-            Handlebars.RegisterHelper("#FormatRelationshipToApplicant", (output, context, parameters) =>
-            {
-                var relationshipToApplicant = parameters[0].ToString();
-                var formattedRelationshipToApplicant = "";
-
-                switch (relationshipToApplicant.ToLower())
-                {
-                    case "partner":
-                        formattedRelationshipToApplicant = "Partner";
-                        break;
-                    case "familymember":
-                        formattedRelationshipToApplicant = "Family Member";
-                        break;
-                    case "jointownertenant":
-                        formattedRelationshipToApplicant = "Joint owner/tenant";
-                        break;
-                    case "lodger":
-                        formattedRelationshipToApplicant = "Lodger";
-                        break;
-                    case "other":
-                        formattedRelationshipToApplicant = "Other";
-                        break;
-                }
-
-                output.WriteSafeString(formattedRelationshipToApplicant);
-            });
-
-            Handlebars.RegisterHelper("#FormatSMI", (output, context, parameters) =>
-            {
-                var relationshipToApplicant = parameters[0].ToString();
-                var formattedRelationshipToApplicant = "";
-
-                switch (relationshipToApplicant.ToLower())
-                {
-                    case "invalidity pension":
-                        formattedRelationshipToApplicant = "Invalidity pension";
-                        break;
-                    case "unemployability supplement":
-                        formattedRelationshipToApplicant = "Unemployability supplement";
-                        break;
-                    case "attendance allowance":
-                        formattedRelationshipToApplicant = "Attendance Allowance";
-                        break;
-                    case "working tax credit with a disability element":
-                        formattedRelationshipToApplicant = "Working Tax Credit with a disability element";
-                        break;
-                    case "constant attendance allowance":
-                        formattedRelationshipToApplicant = "Constant Attendance Allowance";
-                        break;
-                    case "unemployability allowance":
-                        formattedRelationshipToApplicant = "Unemployability allowance";
-                        break;
-                    case "an increase in the rate of disablement pension where constant attendance is needed":
-                        formattedRelationshipToApplicant = "An increase in the rate of Disablement Pension where constant attendance is needed";
-                        break;
-                    case "the care component of a disability living allowance paid at the highest or middle rate":
-                        formattedRelationshipToApplicant = "The care component of a Disability Living Allowance, paid at the highest or middle rate";
-                        break;
-                    case "income support where the applicable amount includes a disability premium":
-                        formattedRelationshipToApplicant = "Income Support where the applicable amount includes a Disability Premium";
-                        break;
-                    case "independence payment":
-                        formattedRelationshipToApplicant = "Other";
-                        break;
-                    case "severe disablement allowance":
-                        formattedRelationshipToApplicant = "Severe Disablement Allowance";
-                        break;
-                    case "employment and support allowance (support component)":
-                        formattedRelationshipToApplicant = "Employment and Support Allowance (Support Component)";
-                        break;
-                    case "the daily living component of a personal independence payment":
-                        formattedRelationshipToApplicant =
-                            "The daily living component of a Personal Independence Payment";
-                        break;
-                }
-
-                output.WriteSafeString(formattedRelationshipToApplicant);
-            });
-
         }
     }
 }
